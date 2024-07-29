@@ -30,4 +30,4 @@ jobs:
       with:
         token: ${{ secrets.GH_TOKEN }}
         BRANCH: prod
-        FOLDER: tic-tac-toe-app/dist/browser
+        FOLDER: pokemon-app/dist/browser
