@@ -1,0 +1,33 @@
+name: Angular Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with: 
+        node-version: 20
+
+    - name: Build Angular app to prod
+      working-directory: ./pokemon-app
+      run: npm install && npm run build:prod
+
+    # - name: Run Tests
+    #   working-directory: ./pokemon-app
+    #   run: npm run test:headless
+
+    - name: Deploy to Github Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+        BRANCH: prod
+        FOLDER: tic-tac-toe-app/dist/browser
