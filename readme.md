@@ -1,4 +1,4 @@
-# Pokemon search and filter
+# Pokemon Search and Filter
 
 ## Description
 Welcome you pokemon fans.
