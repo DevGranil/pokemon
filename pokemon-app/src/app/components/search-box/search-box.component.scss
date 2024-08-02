@@ -1,0 +1,29 @@
+input{
+    padding: 10px;
+    height: 40px;
+    width: 100%;
+    border-radius: 30px;
+    background-color: white;
+    border: 1px solid lightgray;
+    box-shadow: 0 0 5px lightgray;
+    position: relative;
+    z-index: 1;
+}
+
+
+ul{
+    overflow-y: scroll;
+    max-height: 60%;
+    border: 1px solid lightgray;
+    transform: translateY(-40px);
+    padding-top: 40px;
+    padding-inline-start: 0px;
+    box-shadow: 0 0 5px lightgray;
+    border-radius: 0 0 5px 5px;
+
+    li{
+        list-style: none;
+        margin-bottom: 10px;
+        
+    }
+}

@@ -1,14 +1,9 @@
 <main>
     <div class="search-box__wrapper">
-        <h1>Type in a pokemon</h1>
-        <div>
-            <input type="text" (input)="select(input.value)" #input>
-            <ul class="suggestions">
-                @for(suggestion of suggestions(); track suggestion){
-                    <li><a [routerLink]="['pokemon']" [queryParams]="{name: suggestion.name}">{{ suggestion.name }}</a></li>
-                }
-            </ul>
+        <div class="search-box__brand">
+            <img src="../../../assets/brand.svg" alt="pokemon">
         </div>
+        <app-search-box></app-search-box>
     </div>
 </main>
 
