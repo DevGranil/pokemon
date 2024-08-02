@@ -7,4 +7,4 @@ This app can be used to search and filter your favourite pokemon. Begin by searc
 
 ## Tech used to build this app
  - Angular 17 
- - API -> https://pokeapi.co/api/v2/
+ - API -> https://pokeapi.co/
