@@ -1,12 +1,14 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PokeapiService, PokeStore } from '../../services/pokeapi.service';
+import { TextBoldPipe } from '../../pipes/text-bold.pipe';
 
 @Component({
   selector: 'app-search-box',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    TextBoldPipe
   ],
   templateUrl: './search-box.component.html',
   styleUrl: './search-box.component.scss'
