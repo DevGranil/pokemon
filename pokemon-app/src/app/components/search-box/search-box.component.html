@@ -1,4 +1,4 @@
-<input type="text" (input)="select(input.value)" #input placeholder="Search a pokemon">
+<input type="text" (input)="select(input.value)" #input placeholder="Search a pokemon" (keypress)="manualSelect($event, input.value)"> 
 @if(suggestions().length > 0){
     <ul class="suggestions">
         @for(suggestion of suggestions(); track suggestion){

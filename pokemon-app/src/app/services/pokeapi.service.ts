@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { BehaviorSubject, filter, map } from 'rxjs';
+import { BehaviorSubject, filter, map, tap } from 'rxjs';
 
-interface Pokemon{
+interface PokemonResponse{
   count: number,
   next: string,
   results: {name: string, url: string}[]
@@ -210,12 +210,29 @@ export class PokeapiService {
   constructor(private http: HttpClient) { }
 
   buildStore(){
-    this.http.get<Pokemon>(`${this._api}/pokemon?limit=100`).pipe(map(({results}) => { 
-      results.forEach(p => this.http.get<PokeStore>(p.url).subscribe(data => {
+    this.http.get<PokemonResponse>(`${this._api}/pokemon?limit=100`)
+    .pipe(map(({results}) => { 
+      results.forEach(p => this.http.get<PokeStore>(p.url)
+      .subscribe(data => {
         this._store.update(store => [...store, data])
+        console.log(this._store()[0])
       })) 
     })).subscribe()
   }
+
+  addSpecies(){
+    const speciesOb: Species[] = []
+
+    this._store().forEach((element, index) => {
+      this.http.get(`${this._api}/pokemon-species/${element.species.name}`)
+      .pipe(tap((res) => {
+        this._store()[index]['species'] = {...this._store()[index]['species'], ...res }
+        // this._store.update(store => store[index]['species'] = {} )
+      }))
+    });
+    this._store.update(store => store)
+  }
+
 
   nameSlice(input: string){
     return this._store().filter(pokemon => pokemon.name.includes(input))

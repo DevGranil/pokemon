@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PokeapiService, PokeStore } from '../../services/pokeapi.service';
 import { TextBoldPipe } from '../../pipes/text-bold.pipe';
 
@@ -16,7 +16,10 @@ import { TextBoldPipe } from '../../pipes/text-bold.pipe';
 export class SearchBoxComponent {
   suggestions = signal<PokeStore[]>([])
 
-  constructor(private pokiService: PokeapiService){}
+  constructor(
+    private pokiService: PokeapiService,
+    private router: Router
+  ){}
 
   select(val: any){
     if(!val){
@@ -24,6 +27,12 @@ export class SearchBoxComponent {
       return;
     }
     this.suggestions.set(this.pokiService.nameSlice(val))
+  }
+
+  manualSelect(event: Event, val: string){
+    const e = event as KeyboardEvent
+    if(e.key !== 'Enter') return;
+    this.router.navigate(['pokemon'], { queryParams: {name: val} })
   }
 
 }
