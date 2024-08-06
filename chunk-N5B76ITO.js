@@ -1,1 +1,0 @@
-import{Ga as i,Ha as a,Na as r,Oa as p,S as o}from"./chunk-33HCJH3C.js";var d=(()=>{let e=class e{};e.\u0275fac=function(n){return new(n||e)},e.\u0275cmp=o({type:e,selectors:[["app-pokemon"]],standalone:!0,features:[p],decls:2,vars:0,template:function(n,m){n&1&&(i(0,"p"),r(1,"pokemon works!"),a())}});let t=e;return t})();export{d as PokemonComponent};
