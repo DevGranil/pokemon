@@ -41,6 +41,7 @@ export interface Ability {
 export interface Species {
   name: string;
   url:  string;
+  [key: string]: any
 }
 
 export interface Cries {
@@ -226,8 +227,11 @@ export class PokeapiService {
     this._store().forEach((element, index) => {
       this.http.get(`${this._api}/pokemon-species/${element.species.name}`)
       .pipe(tap((res) => {
-        this._store()[index]['species'] = {...this._store()[index]['species'], ...res }
-        // this._store.update(store => store[index]['species'] = {} )
+        let species = {...this._store()[index].species, ...res}
+        this._store.update(store => {
+          store[index].species = species;
+          return store
+        })
       }))
     });
     this._store.update(store => store)
