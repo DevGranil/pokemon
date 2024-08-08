@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { PokeapiService } from '../../../services/pokeapi.service';
+import { Component, effect, OnInit } from '@angular/core';
+import { Filters, PokeapiService } from '../../../services/pokeapi.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-grid',
@@ -8,8 +9,21 @@ import { PokeapiService } from '../../../services/pokeapi.service';
   templateUrl: './grid.component.html',
   styleUrl: './grid.component.scss'
 })
-export class GridComponent {
+export class GridComponent implements OnInit{
 
-  constructor(private pokiApi: PokeapiService){}
+  list$ = this.pokiApi['gridStore']
+
+  constructor(
+    private pokiApi: PokeapiService,
+    private activeRoute: ActivatedRoute
+  ){
+
+    effect(() => console.log(this.list$()))
+  }
+  ngOnInit(): void {
+    this.activeRoute.queryParams.subscribe((data) => {
+      this.pokiApi.listPokemon({name: 'c'} as any, {types: 'ground'} as any)
+    })
+  }
 
 }

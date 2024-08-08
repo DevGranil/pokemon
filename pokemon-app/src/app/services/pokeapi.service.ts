@@ -199,6 +199,22 @@ export interface Type {
   type: Species;
 }
 
+export enum FilterTypes{
+  TYPES = 'types',
+  COLOR = 'color',
+  NAME = 'name'
+}
+
+interface FilterStruct<N extends FilterTypes,T>{
+  N:T 
+}
+
+interface FilterTypeName extends FilterStruct<FilterTypes.NAME, string>{}
+interface FilterTypeType extends FilterStruct<FilterTypes.TYPES, string>{}
+interface FilterTypeSpecies extends FilterStruct<FilterTypes.COLOR, string>{}
+
+export type Filters = FilterTypeName | FilterTypeType | FilterTypeSpecies
+// export type Filters = {[key in FilterTypes]: string}
 
 @Injectable({
   providedIn: 'root'
@@ -207,6 +223,7 @@ export class PokeapiService {
 
   private _api: string = 'https://pokeapi.co/api/v2/'
   private _store = signal<PokeStore[]>([])
+  gridStore = signal<PokeStore[]>([])
 
   constructor(private http: HttpClient) { }
 
@@ -232,7 +249,6 @@ export class PokeapiService {
         })
       })).subscribe()
     }
-
     console.log(this._store())
   }
 
@@ -242,23 +258,42 @@ export class PokeapiService {
   }
 
 
-  filteredPokemon(...filters: {queryType: string, query: string}[]){
-    const store = this._store()
-    const filteredStore : PokeStore[] = []
+  listPokemon(...filters: Filters[]){
+    let filteredStore : PokeStore[] = this._store()
+    
+    filters.forEach(f => {
+      switch(Object.keys(f)[0]){
+        case FilterTypes.NAME: {
+          const val = Object.values(f)[0]
+          filteredStore = filteredStore.filter(pokemon => pokemon.name.includes(val))
+          break;
+        }
+        case FilterTypes.COLOR:{
+          const key = Object.keys(f)[0]
+          const val = Object.values(f)[0]
+          filteredStore = filteredStore.filter(pokemon => pokemon.species[key] === val)
+          break;
+        }
+        case FilterTypes.TYPES:{
+          const val = Object.values(f)[0]
+          filteredStore.forEach((pokemon,index) => {
+            let valid: boolean = false;
+            for(let i of pokemon.types){
+              if(i.type.name === val) valid = true; 
+            }
 
-
-    filters.forEach(filter => {
-      for(let pokemon of this._store()){
-        if(Array.isArray(pokemon[filter.queryType as keyof PokeStore])){
-          this.nestedProperty(filter, filteredStore)
-          //is array 
+            if(!valid) {
+              filteredStore.splice(index, 1)
+            }
+          })
+          break;
         }
       }
     })
+
+    this.gridStore.set(filteredStore)
+
+    console.log(this.gridStore())
   }
   
-
-  private nestedProperty(filter: {queryType: string, query: string}, store: PokeStore[]){
-    
-  }
 }

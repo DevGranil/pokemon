@@ -5,7 +5,7 @@
             <li>
                 <a 
                 [routerLink]="['/','pokemon']" 
-                [queryParams]="{name_name: suggestion.name}" 
+                [queryParams]="{name: suggestion.name}" 
                 [innerHTML]="suggestion.name | textBold : input.value"
                 ></a></li>
         }
