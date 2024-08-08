@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PokeapiService } from '../../../services/pokeapi.service';
 
 @Component({
   selector: 'app-grid',
@@ -8,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './grid.component.scss'
 })
 export class GridComponent {
+
+  constructor(private pokiApi: PokeapiService){}
 
 }

@@ -211,20 +211,18 @@ export class PokeapiService {
   constructor(private http: HttpClient) { }
 
   buildStore(){
-    this.http.get<PokemonResponse>(`${this._api}/pokemon?limit=100`)
+    this.http.get<PokemonResponse>(`${this._api}/pokemon?limit=200`)
     .pipe(map(({results}) => { 
       results.forEach(p => this.http.get<PokeStore>(p.url)
       .subscribe(data => {
         this._store.update(store => [...store, data])
-        console.log(this._store()[0])
       })) 
     })).subscribe()
   }
 
   addSpecies(){
-    const speciesOb: Species[] = []
-
-    this._store().forEach((element, index) => {
+    for(let [index, element] of this._store().entries()){
+      if(!element) break;
       this.http.get(`${this._api}/pokemon-species/${element.species.name}`)
       .pipe(tap((res) => {
         let species = {...this._store()[index].species, ...res}
@@ -232,13 +230,35 @@ export class PokeapiService {
           store[index].species = species;
           return store
         })
-      }))
-    });
-    this._store.update(store => store)
+      })).subscribe()
+    }
+
+    console.log(this._store())
   }
 
 
   nameSlice(input: string){
-    return this._store().filter(pokemon => pokemon.name.includes(input))
+    return this._store().filter(pokemon => pokemon && pokemon.name.includes(input))
+  }
+
+
+  filteredPokemon(...filters: {queryType: string, query: string}[]){
+    const store = this._store()
+    const filteredStore : PokeStore[] = []
+
+
+    filters.forEach(filter => {
+      for(let pokemon of this._store()){
+        if(Array.isArray(pokemon[filter.queryType as keyof PokeStore])){
+          this.nestedProperty(filter, filteredStore)
+          //is array 
+        }
+      }
+    })
+  }
+  
+
+  private nestedProperty(filter: {queryType: string, query: string}, store: PokeStore[]){
+    
   }
 }
