@@ -249,7 +249,6 @@ export class PokeapiService {
         })
       })).subscribe()
     }
-    console.log(this._store())
   }
 
 
@@ -276,24 +275,19 @@ export class PokeapiService {
         }
         case FilterTypes.TYPES:{
           const val = Object.values(f)[0]
-          filteredStore.forEach((pokemon,index) => {
-            let valid: boolean = false;
-            for(let i of pokemon.types){
-              if(i.type.name === val) valid = true; 
-            }
+          const filteredByType : PokeStore[] = [];
 
-            if(!valid) {
-              filteredStore.splice(index, 1)
-            }
+          filteredStore.forEach((pokemon) => {
+              if(pokemon.types.find(type => type.type.name === val)) filteredByType.push(pokemon)
           })
-          break;
+
+          filteredStore = filteredByType
         }
       }
     })
-
     this.gridStore.set(filteredStore)
 
-    console.log(this.gridStore())
+   
   }
   
 }

@@ -22,7 +22,7 @@ export class GridComponent implements OnInit{
   }
   ngOnInit(): void {
     this.activeRoute.queryParams.subscribe((data) => {
-      this.pokiApi.listPokemon({name: 'c'} as any, {types: 'ground'} as any)
+      this.pokiApi.listPokemon({name: 'm'} as any, {types: 'ground'} as any)
     })
   }
 

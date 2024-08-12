@@ -9,5 +9,5 @@ export const routes: Routes = [
     { 
         path: 'pokemon',
         loadComponent: () => import('./pages/pokemon/pokemon.component').then(c => c.PokemonComponent)
-    }
+    },
 ];

@@ -1,5 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { PokeapiService, PokeStore } from './services/pokeapi.service';
 
 @Component({
@@ -14,9 +14,10 @@ import { PokeapiService, PokeStore } from './services/pokeapi.service';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private pokiService: PokeapiService){}
+  constructor(private pokiService: PokeapiService, private router: Router){}
 
   ngOnInit(): void {
+    this.router.navigate([''])
     this.pokiService.buildStore()
   }
 
