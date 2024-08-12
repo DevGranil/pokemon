@@ -261,20 +261,18 @@ export class PokeapiService {
     let filteredStore : PokeStore[] = this._store()
     
     filters.forEach(f => {
-      switch(Object.keys(f)[0]){
+      const key = Object.keys(f)[0];
+      const val = Object.values(f)[0];
+      switch(key){
         case FilterTypes.NAME: {
-          const val = Object.values(f)[0]
           filteredStore = filteredStore.filter(pokemon => pokemon.name.includes(val))
           break;
         }
         case FilterTypes.COLOR:{
-          const key = Object.keys(f)[0]
-          const val = Object.values(f)[0]
           filteredStore = filteredStore.filter(pokemon => pokemon.species[key] === val)
           break;
         }
         case FilterTypes.TYPES:{
-          const val = Object.values(f)[0]
           const filteredByType : PokeStore[] = [];
 
           filteredStore.forEach((pokemon) => {
