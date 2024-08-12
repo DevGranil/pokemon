@@ -228,7 +228,7 @@ export class PokeapiService {
   constructor(private http: HttpClient) { }
 
   buildStore(){
-    this.http.get<PokemonResponse>(`${this._api}/pokemon?limit=200`)
+    this.http.get<PokemonResponse>(`${this._api}/pokemon?limit=150`)
     .pipe(map(({results}) => { 
       results.forEach(p => this.http.get<PokeStore>(p.url)
       .subscribe(data => {
