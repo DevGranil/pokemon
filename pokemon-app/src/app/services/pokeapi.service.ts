@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, Signal, signal } from '@angular/core';
 import { BehaviorSubject, filter, map, tap } from 'rxjs';
 
 interface PokemonResponse{
@@ -212,9 +212,13 @@ interface FilterStruct<N extends FilterTypes,T>{
 interface FilterTypeName extends FilterStruct<FilterTypes.NAME, string>{}
 interface FilterTypeType extends FilterStruct<FilterTypes.TYPES, string>{}
 interface FilterTypeSpecies extends FilterStruct<FilterTypes.COLOR, string>{}
-
 export type Filters = FilterTypeName | FilterTypeType | FilterTypeSpecies
-// export type Filters = {[key in FilterTypes]: string}
+
+
+export interface ThrottledData{
+  data: PokeStore[],
+  max: number
+}
 
 @Injectable({
   providedIn: 'root'
@@ -223,9 +227,25 @@ export class PokeapiService {
 
   private _api: string = 'https://pokeapi.co/api/v2/'
   private _store = signal<PokeStore[]>([])
-  gridStore = signal<PokeStore[]>([])
+  private _gridStore = signal<PokeStore[]>([])
+  private _throttleStore = signal<PokeStore[]>([])
 
   constructor(private http: HttpClient) { }
+
+  throttledList = 
+    (computed(() => {
+      return {
+        data: this._throttleStore(),
+        max: this._gridStore().length
+      }
+    }))
+  
+
+  throttleList(throttle: number){
+    this._throttleStore.set(this._gridStore().slice(0, throttle))
+  }
+
+
 
   buildStore(){
     this.http.get<PokemonResponse>(`${this._api}/pokemon?limit=150`)
@@ -283,9 +303,9 @@ export class PokeapiService {
         }
       }
     })
-    this.gridStore.set(filteredStore)
-
-   
+    this._gridStore.set(filteredStore)
   }
+
+
   
 }

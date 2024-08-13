@@ -1,17 +1,6 @@
-<div class="grid">
-    <section></section>
-    <section></section>
-    <section></section>
-    <section></section>
-    <section></section>
-    <section></section>
-    <section></section>
-    <section></section>
-    <section></section>
-    <section></section>
-    <section></section>
-    <section></section>
-    <section></section>
-    <section></section>
-    <section></section>
+<div class="grid" (scroll)="onScroll($event)">
+    @for(i of list$().data; track i){
+        <section></section>
+    }    
+
 </div>

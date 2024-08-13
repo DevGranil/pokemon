@@ -1,5 +1,5 @@
-import { Component, effect, OnInit } from '@angular/core';
-import { Filters, PokeapiService } from '../../../services/pokeapi.service';
+import { Component, effect, OnInit, Signal } from '@angular/core';
+import { Filters, PokeapiService, ThrottledData } from '../../../services/pokeapi.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -11,19 +11,34 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class GridComponent implements OnInit{
 
-  list$ = this.pokiApi['gridStore']
+  list$: Signal<ThrottledData> = this.pokiApi.throttledList;
+  private throttle: number = 10;
 
   constructor(
     private pokiApi: PokeapiService,
     private activeRoute: ActivatedRoute
   ){
-
     effect(() => console.log(this.list$()))
   }
   ngOnInit(): void {
     this.activeRoute.queryParams.subscribe((data) => {
-      this.pokiApi.listPokemon({name: 'm'} as any, {types: 'ground'} as any)
+      this.pokiApi.listPokemon({name: 'm'} as any)
     })
+
+    this.pokiApi.throttleList(10)
+
+  }
+
+  onScroll(event: Event){
+    const target = event.target as HTMLDivElement
+    if(!this.list$) return;
+    if (target.offsetHeight + target.scrollTop >= target.scrollHeight) {
+      const currentlistLength = this.list$().data.length;
+      const max = this.list$().max
+      if( currentlistLength < max){
+        this.pokiApi.throttleList(currentlistLength + this.throttle)
+      }
+    }
   }
 
 }

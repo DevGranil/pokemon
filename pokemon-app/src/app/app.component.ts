@@ -17,7 +17,7 @@ export class AppComponent implements OnInit{
   constructor(private pokiService: PokeapiService, private router: Router){}
 
   ngOnInit(): void {
-    this.router.navigate([''])
+    // this.router.navigate([''])
     this.pokiService.buildStore()
   }
 
