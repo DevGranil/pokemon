@@ -22,10 +22,11 @@ export class GridComponent implements OnInit{
   }
   ngOnInit(): void {
     this.activeRoute.queryParams.subscribe((data) => {
-      this.pokiApi.listPokemon({name: 'm'} as any)
+      this.pokiApi.listPokemon(data as Filters)
+      // this.pokiApi.listPokemon({name: 'm'} as any)
     })
 
-    this.pokiApi.throttleList(10)
+    this.pokiApi.throttleList(this.throttle)
 
   }
 

@@ -205,14 +205,16 @@ export enum FilterTypes{
   NAME = 'name'
 }
 
-interface FilterStruct<N extends FilterTypes,T>{
-  N:T 
-}
+// interface FilterStruct<Type extends FilterTypes,T>{
+//   Type:T 
+// }
 
-interface FilterTypeName extends FilterStruct<FilterTypes.NAME, string>{}
-interface FilterTypeType extends FilterStruct<FilterTypes.TYPES, string>{}
-interface FilterTypeSpecies extends FilterStruct<FilterTypes.COLOR, string>{}
-export type Filters = FilterTypeName | FilterTypeType | FilterTypeSpecies
+// interface FilterTypeName extends FilterStruct<FilterTypes.NAME, string>{}
+// interface FilterTypeType extends FilterStruct<FilterTypes.TYPES, string>{}
+// interface FilterTypeSpecies extends FilterStruct<FilterTypes.COLOR, string>{}
+
+// export type Filters = FilterTypeName | FilterTypeType | FilterTypeSpecies
+export type Filters = Record<FilterTypes, string>
 
 
 export interface ThrottledData{
@@ -243,6 +245,24 @@ export class PokeapiService {
 
   throttleList(throttle: number){
     this._throttleStore.set(this._gridStore().slice(0, throttle))
+  }
+
+  buildOptions(type: Exclude<FilterTypes, FilterTypes.NAME>){
+   
+    switch(type){
+      case FilterTypes.COLOR:{
+        // computed(() => this._store().reduce())
+        break;
+      }
+      case FilterTypes.TYPES:{
+        break
+      }
+
+      default: {
+        const exhaustive: never = type;
+        console.log(exhaustive)
+      }
+    }
   }
 
 
@@ -281,12 +301,13 @@ export class PokeapiService {
     let filteredStore : PokeStore[] = this._store()
     
     filters.forEach(f => {
-      const key = Object.keys(f)[0];
+      const key = Object.keys(f)[0] as FilterTypes;
       const val = Object.values(f)[0];
+
       switch(key){
         case FilterTypes.NAME: {
           filteredStore = filteredStore.filter(pokemon => pokemon.name.includes(val))
-          break;
+          break
         }
         case FilterTypes.COLOR:{
           filteredStore = filteredStore.filter(pokemon => pokemon.species[key] === val)
@@ -300,9 +321,16 @@ export class PokeapiService {
           })
 
           filteredStore = filteredByType
+          break
+        }
+
+        default: {
+          const exhaustive: never = key;
+          console.log(exhaustive)
         }
       }
     })
+
     this._gridStore.set(filteredStore)
   }
 

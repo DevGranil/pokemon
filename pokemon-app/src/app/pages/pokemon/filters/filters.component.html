@@ -4,14 +4,7 @@
    </div>
    <div class="filter">
         <label class="filter__title" for="type">Type</label>
-        <div class="filter__select-wrapper">
-          <select class="filter__select" name="" id="type">
-               <option value="">hi</option>
-               <option value="">hi</option>
-               <option value="">hi</option>
-               <option value="">hi</option>
-             </select>     
-        </div>
+          <app-select-option [filterType]="filterTypes.TYPES"></app-select-option>
    </div>
    <div class="filter">
         <label class="filter__title">Species</label>
