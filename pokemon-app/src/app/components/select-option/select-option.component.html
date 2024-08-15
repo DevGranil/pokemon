@@ -1,8 +1,11 @@
 <div class="select-wrapper">
-    <select class="select" name="" id="type">
-         <option value="">hi</option>
-         <option value="">hi</option>
-         <option value="">hi</option>
-         <option value="">hi</option>
+    <select class="select" name="" id="type" (change)="selectedOption(select)" #select [(ngModel)]="selectedItem">
+        @if(options$){ 
+            <option disabled value selected>Select type</option>
+            @for(option of options$(); track option){
+               
+               <option [value]="option">{{option}}</option>
+            }    
+        }
     </select>     
-  </div>
+</div>

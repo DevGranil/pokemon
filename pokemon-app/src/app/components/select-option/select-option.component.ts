@@ -1,21 +1,40 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, effect, input, OnInit, Signal } from '@angular/core';
 import { Filters, FilterTypes, PokeapiService } from '../../services/pokeapi.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-select-option',
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule
+  ],
   templateUrl: './select-option.component.html',
   styleUrl: './select-option.component.scss'
 })
 export class SelectOptionComponent implements OnInit {
   readonly filterType = input.required<Exclude<FilterTypes, FilterTypes.NAME>>()
+  options$: Signal<string[]> | undefined = undefined;
+  selectedItem: string = ''
 
-  constructor(private pokiService: PokeapiService){
-  }
+  constructor(
+    private pokiService: PokeapiService,
+    private router: Router,
+    private activeRoute: ActivatedRoute
+  ){}
 
   ngOnInit(): void {
-    this.pokiService.buildOptions(this.filterType())
+    this.options$ = this.pokiService.buildOptions(this.filterType())
+    this.activeRoute.queryParams.subscribe((data) => this.selectedItem = data['types'])
+
+  }
+
+  selectedOption(el: HTMLSelectElement){
+    this.router.navigate([], {
+      relativeTo: this.activeRoute,
+      queryParams: {[this.filterType()]: el.value},
+      queryParamsHandling: 'merge'
+    })
   }
 
 

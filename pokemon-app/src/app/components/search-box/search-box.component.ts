@@ -41,7 +41,7 @@ export class SearchBoxComponent implements OnInit {
   manualSelect(event: Event, val: string){
     const e = event as KeyboardEvent | FocusEvent
     if('key' in e && e.key !== 'Enter') return;
-    this.router.navigate(['pokemon'], { queryParams: {name: val} })
+    this.router.navigate(['pokemon'], { queryParams: {name: val}, queryParamsHandling: 'merge' })
     this.suggestions.set([])
   }
 

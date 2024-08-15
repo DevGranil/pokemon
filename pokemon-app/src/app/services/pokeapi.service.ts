@@ -247,22 +247,37 @@ export class PokeapiService {
     this._throttleStore.set(this._gridStore().slice(0, throttle))
   }
 
+
+
   buildOptions(type: Exclude<FilterTypes, FilterTypes.NAME>){
-   
     switch(type){
       case FilterTypes.COLOR:{
-        // computed(() => this._store().reduce())
-        break;
+        return computed(() => {
+          const allTypes: string[] = [];
+          this._store().forEach(pokemon => {
+             pokemon.types.filter(type => allTypes.push(type.type.name))
+          })
+          return [...new Set(allTypes)];
+        })
       }
       case FilterTypes.TYPES:{
-        break
+          return computed(() => {
+            const allTypes: string[] = [];
+            this._store().forEach(pokemon => {
+               pokemon.types.filter(type => allTypes.push(type.type.name))
+            })
+            return [...new Set(allTypes)];
+          })
+
       }
 
       default: {
         const exhaustive: never = type;
-        console.log(exhaustive)
+        console.log('[Exhaustive]: ' + exhaustive)
       }
     }
+
+    return undefined
   }
 
 
@@ -297,13 +312,12 @@ export class PokeapiService {
   }
 
 
-  listPokemon(...filters: Filters[]){
+  listPokemon(filters: Filters){
     let filteredStore : PokeStore[] = this._store()
-    
-    filters.forEach(f => {
-      const key = Object.keys(f)[0] as FilterTypes;
-      const val = Object.values(f)[0];
-
+    for(let key in filters){
+     
+      // const key = k as FilterTypes
+      const val = filters[key as FilterTypes];
       switch(key){
         case FilterTypes.NAME: {
           filteredStore = filteredStore.filter(pokemon => pokemon.name.includes(val))
@@ -319,19 +333,14 @@ export class PokeapiService {
           filteredStore.forEach((pokemon) => {
               if(pokemon.types.find(type => type.type.name === val)) filteredByType.push(pokemon)
           })
-
           filteredStore = filteredByType
           break
         }
-
-        default: {
-          const exhaustive: never = key;
-          console.log(exhaustive)
-        }
       }
-    })
+    }
 
     this._gridStore.set(filteredStore)
+    this.throttleList(10)
   }
 
 

@@ -5,7 +5,8 @@
             <li>
                 <a (click)="closeSuggestions()"
                 [routerLink]="['/','pokemon']" 
-                [queryParams]="{name: suggestion.name}" 
+                [queryParams]="{name: suggestion.name}"
+                [queryParamsHandling]="'merge'" 
                 [innerHTML]="suggestion.name | textBold : input.value"
                 ></a></li>
         }
