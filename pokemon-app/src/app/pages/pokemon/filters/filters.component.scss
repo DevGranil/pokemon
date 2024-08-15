@@ -1,6 +1,87 @@
 div.panel{
-    width: 20vw;
-    padding: 10px;
-    background-color: red;
+    padding: 30px;
+    padding-top: 100px;
     height: 100vh;
+    position: fixed;
+    width: 100vw;
+    transform: translate(-100vw);
+    transition: transform 200ms;
+    background-color: rgb(238, 238, 238);
+
+    &.display{
+        transform: translateX(0);  
+    }
+
+    @media screen and (min-width: 768px) {
+        width: 20vw;
+        position: static;
+        transform: translate(0vw);
+        padding-top: 50px;
+    }
+}
+
+.filter{
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(190, 190, 190);
+
+    &__title{
+        display: block;
+        font-size: 1.5rem;
+        margin-right: 20px;
+        margin-bottom: 20px;
+    }
+
+    &__select{
+        width: 100%;
+        padding: 10px;
+        border: none;
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        font-size: 1rem;
+        
+        &-wrapper{
+            position: relative;
+            background-color: white;
+            &::after {
+                content: "▼";
+                font-size: 1rem;
+                top: 6px;
+                right: 10px;
+                position: absolute;
+              }
+        }
+
+
+    }
+}
+
+.mob-filter{
+    // background-color: lightgray;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+    width: 50px;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 50%;
+    position: fixed;
+    box-shadow: 0 0 5px rgb(241, 241, 241);
+    border: none;
+    top: 10px;
+    left: 10px;
+    background-color: white;
+
+    @media screen and (min-width: 768px) {
+        display: none;
+    }
+
+    span{
+        height: 7px;
+        width: 7px;
+        background-color: rgb(0, 0, 0);
+        border-radius: 50%;
+    }
 }

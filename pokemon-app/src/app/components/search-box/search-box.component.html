@@ -1,9 +1,9 @@
-<input type="text" (input)="select(input.value)" #input placeholder="Search a pokemon" (keypress)="manualSelect($event, input.value)"> 
+<input type="text" (input)="select(input.value)" #input placeholder="Search a pokemon" (keypress)="manualSelect($event, input.value)" [(ngModel)]="selectItem"> 
 @if(suggestions().length > 0){
     <ul class="suggestions">
         @for(suggestion of suggestions(); track suggestion){
             <li>
-                <a 
+                <a (click)="closeSuggestions()"
                 [routerLink]="['/','pokemon']" 
                 [queryParams]="{name: suggestion.name}" 
                 [innerHTML]="suggestion.name | textBold : input.value"

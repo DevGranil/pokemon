@@ -26,6 +26,9 @@ input {
 
 body{
     color: #36454F;
+    font-family: "Aldrich", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 input[type=text], input[type=button], input[type=submit] {   
@@ -36,6 +39,7 @@ input:focus{
     outline: none;
 }
 
+
 a{
     color: inherit;
     text-decoration: none;
@@ -43,6 +47,14 @@ a{
 
 span.txt{
     &-bold{
-        font-weight: bold;
+        color: #3c5aa6;
     }
+}
+
+h1,h2,h3,h4,h5,h6, label{
+
+    font-family: "Carter One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+      
 }
