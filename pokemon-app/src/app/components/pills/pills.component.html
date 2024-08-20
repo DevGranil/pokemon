@@ -1,6 +1,6 @@
 
 @if(Object.keys(pills$()).length > 0){
-    <div class="pills-wrapper">
+    <div class="pills-wrapper" [ngClass]="size$()">
         @for(i of pills$() | keyvalue; track i){
             <button class="pills-pill" (click)="removeFilter(i.key)">
                 <span>{{i.value}}</span>

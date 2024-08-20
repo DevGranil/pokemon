@@ -3,6 +3,7 @@ import { SearchBoxComponent } from '../../../components/search-box/search-box.co
 import { CommonModule } from '@angular/common';
 import { SelectOptionComponent } from '../../../components/select-option/select-option.component';
 import { FilterTypes, PokeapiService } from '../../../services/pokeapi.service';
+import { PillsComponent } from '../../../components/pills/pills.component';
 
 @Component({
   selector: 'app-filters',
@@ -10,7 +11,8 @@ import { FilterTypes, PokeapiService } from '../../../services/pokeapi.service';
   imports: [
     SearchBoxComponent,
     CommonModule,
-    SelectOptionComponent
+    SelectOptionComponent,
+    PillsComponent
   ],
   templateUrl: './filters.component.html',
   styleUrl: './filters.component.scss'

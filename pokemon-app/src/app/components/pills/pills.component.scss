@@ -1,12 +1,29 @@
 .pills{
     &-wrapper{
         height: 100px;
-        position: sticky;
-        top: 0;
-        background-color: white;
-        display: flex;
         align-items: center;
-        margin: 0 20px;
+        display: flex;
+        overflow-x: auto;
+
+        &.mob{
+            background-color: transparent;
+            margin-bottom: 20px;
+            @media screen and (min-width: 1000px) {
+                display: none;
+            }
+        }
+
+        &.large{
+            background-color: white;
+            display: none;
+            margin: 0 20px;
+            @media screen and (min-width:1000px) {
+                display: flex;
+                position: sticky;
+                top: 0;
+            }
+        
+        }
     }
 
     &-pill{

@@ -1,16 +1,20 @@
-import { KeyValuePipe } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { CommonModule, KeyValuePipe } from '@angular/common';
+import { Component, input, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-pills',
   standalone: true,
-  imports: [KeyValuePipe],
+  imports: [
+    KeyValuePipe,
+    CommonModule
+  ],
   templateUrl: './pills.component.html',
   styleUrl: './pills.component.scss'
 })
 export class PillsComponent implements OnInit{
   readonly pills$ = signal<Params>({})
+  readonly size$ = input.required<"mob" | "large">()
   Object = Object
 
   constructor(

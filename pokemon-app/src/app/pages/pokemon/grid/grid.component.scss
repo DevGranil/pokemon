@@ -6,6 +6,14 @@
 
     }
 
+    &-pills{
+        display: none;
+
+        @media screen and (min-width: 1000px) {
+            display: block;
+        }
+    }
+
     &-grid{
         height: 100%;
         width: 100%;
