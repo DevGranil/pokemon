@@ -1,26 +1,28 @@
-import { Component, input, Input } from '@angular/core';
+import { Component, input, Input, OnInit } from '@angular/core';
 import { SearchBoxComponent } from '../../../components/search-box/search-box.component';
-import { SpeciesComponent } from './species/species.component';
 import { CommonModule } from '@angular/common';
 import { SelectOptionComponent } from '../../../components/select-option/select-option.component';
-import { FilterTypes } from '../../../services/pokeapi.service';
+import { FilterTypes, PokeapiService } from '../../../services/pokeapi.service';
 
 @Component({
   selector: 'app-filters',
   standalone: true,
   imports: [
     SearchBoxComponent,
-    SpeciesComponent,
     CommonModule,
     SelectOptionComponent
   ],
   templateUrl: './filters.component.html',
   styleUrl: './filters.component.scss'
 })
-export class FiltersComponent {
+export class FiltersComponent implements OnInit{
   filterTypes = FilterTypes
-
   displayPanel: boolean = false;
+
+  constructor(private pokeApiService: PokeapiService){}
+
+  ngOnInit(): void {
+  }
 
   showPanel(){
     this.displayPanel = !this.displayPanel;

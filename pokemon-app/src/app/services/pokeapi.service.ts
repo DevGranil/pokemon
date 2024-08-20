@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, Injectable, Signal, signal } from '@angular/core';
-import { BehaviorSubject, filter, map, tap } from 'rxjs';
+import { BehaviorSubject, filter, lastValueFrom, map, tap } from 'rxjs';
 
 interface PokemonResponse{
   count: number,
@@ -249,15 +249,17 @@ export class PokeapiService {
 
 
 
-  buildOptions(type: Exclude<FilterTypes, FilterTypes.NAME>){
+  async buildOptions(type: Exclude<FilterTypes, FilterTypes.NAME>){
     switch(type){
       case FilterTypes.COLOR:{
+        await this.addSpecies()
+
         return computed(() => {
-          const allTypes: string[] = [];
+          const allColours: string[] = [];
           this._store().forEach(pokemon => {
-             pokemon.types.filter(type => allTypes.push(type.type.name))
+            allColours.push(pokemon.species[type]['name'])
           })
-          return [...new Set(allTypes)];
+          return [...new Set(allColours)];
         })
       }
       case FilterTypes.TYPES:{
@@ -292,18 +294,16 @@ export class PokeapiService {
     })).subscribe()
   }
 
-  addSpecies(){
-    for(let [index, element] of this._store().entries()){
-      if(!element) break;
-      this.http.get(`${this._api}/pokemon-species/${element.species.name}`)
-      .pipe(tap((res) => {
-        let species = {...this._store()[index].species, ...res}
-        this._store.update(store => {
-          store[index].species = species;
-          return store
-        })
-      })).subscribe()
-    }
+  private async addSpecies(){
+      for(let [index, element] of this._store().entries()){
+        if(!element) break;
+          const res = await lastValueFrom(this.http.get<PokeStore>(`${this._api}/pokemon-species/${element.species.name}`))
+          let species = {...this._store()[index].species, ...res}
+          this._store.update(store => {
+            store[index].species = species;
+            return store
+          })
+      }
   }
 
 
@@ -324,7 +324,7 @@ export class PokeapiService {
           break
         }
         case FilterTypes.COLOR:{
-          filteredStore = filteredStore.filter(pokemon => pokemon.species[key] === val)
+          filteredStore = filteredStore.filter(pokemon => pokemon.species[key] && pokemon.species[key]['name'] === val)
           break;
         }
         case FilterTypes.TYPES:{

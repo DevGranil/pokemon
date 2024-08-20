@@ -24,9 +24,13 @@ export class SelectOptionComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    this.options$ = this.pokiService.buildOptions(this.filterType())
-    this.activeRoute.queryParams.subscribe((data) => this.selectedItem = data['types'])
+    this.buildOptions()
+    this.activeRoute.queryParams.subscribe((data) => this.selectedItem = data[this.filterType()])
 
+  }
+
+  async buildOptions(){
+    this.options$ = await this.pokiService.buildOptions(this.filterType())
   }
 
   selectedOption(el: HTMLSelectElement){
