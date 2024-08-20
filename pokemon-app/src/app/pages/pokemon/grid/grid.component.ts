@@ -1,18 +1,21 @@
 import { Component, effect, OnInit, Signal } from '@angular/core';
 import { Filters, PokeapiService, ThrottledData } from '../../../services/pokeapi.service';
 import { ActivatedRoute } from '@angular/router';
+import { PillsComponent } from '../../../components/pills/pills.component';
 
 @Component({
   selector: 'app-grid',
   standalone: true,
-  imports: [],
+  imports: [
+    PillsComponent
+  ],
   templateUrl: './grid.component.html',
   styleUrl: './grid.component.scss'
 })
 export class GridComponent implements OnInit{
 
   list$: Signal<ThrottledData> = this.pokiApi.throttledList;
-  private throttle: number = 10;
+  private throttle: number = 14;
 
   constructor(
     private pokiApi: PokeapiService,

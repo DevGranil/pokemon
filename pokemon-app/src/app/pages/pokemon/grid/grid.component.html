@@ -1,5 +1,8 @@
-<div class="grid" (scroll)="onScroll($event)">
-    @for(i of list$().data; track i){
-        <section></section>
-    }    
+<div class="grid-wrapper" (scroll)="onScroll($event)">
+    <app-pills></app-pills>
+    <div class="grid-grid" >
+        @for(i of list$().data; track i){
+            <section></section>
+        }    
+    </div>
 </div>

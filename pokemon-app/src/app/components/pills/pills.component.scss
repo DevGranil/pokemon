@@ -1,0 +1,33 @@
+.pills{
+    &-wrapper{
+        height: 100px;
+        position: sticky;
+        top: 0;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        margin: 0 20px;
+    }
+
+    &-pill{
+        border: 1px solid;
+        border-color: #404040;
+        background-color: rgba(#0075BE, 0.1);
+        padding: 10px 40px;
+        margin-right: 10px;
+        font-size: 1.1rem;
+        text-transform: capitalize;
+        border-radius: 20px;
+        position: relative;
+
+        img{
+            height: 13px;
+            width: 13px;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+    }
+}

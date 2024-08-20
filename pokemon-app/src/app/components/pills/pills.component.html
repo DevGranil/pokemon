@@ -1,0 +1,15 @@
+
+@if(Object.keys(pills$()).length > 0){
+    <div class="pills-wrapper">
+        @for(i of pills$() | keyvalue; track i){
+            <button class="pills-pill" (click)="removeFilter(i.key)">
+                <span>{{i.value}}</span>
+                <img src="../../../assets/close.svg" alt="close">
+            </button>
+        }    
+    </div>
+    
+    
+}
+
+
