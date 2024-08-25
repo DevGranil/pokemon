@@ -57,9 +57,10 @@ export class GridComponent implements OnInit{
     if(!this.grid) return;
 
     this.showHelper = false;
-    this.setShowHelper()
     
+
     if(this.moreToShow()){
+      this.setShowHelper()
       this.pokiApi.throttleList(this.list$().data.length + this.throttle)
     }
     
