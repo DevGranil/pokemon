@@ -8,7 +8,7 @@
           <app-select-option [filterType]="filterTypes.TYPES"></app-select-option>
    </div>
    <div class="filter">
-        <label class="filter__title">Species</label>
+        <label class="filter__title">Colour</label>
         <app-select-option [filterType]="filterTypes.COLOR"></app-select-option>
    </div>
 
@@ -18,6 +18,12 @@
    <div class="filter">
      <span>Total results: </span><span>({{total()}})</span>
    </div>
+
+
+   <a class="brand" [routerLink]="['/']">
+     <span hidden>Pokemon</span>
+     <img src="../../../../assets/brand.svg" alt="pokemon">
+   </a>
 </div>
 
 <button class="mob-filter" (click)="showPanel()">

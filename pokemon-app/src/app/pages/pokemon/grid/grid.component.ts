@@ -3,13 +3,15 @@ import { Filters, PokeapiService, ThrottledData } from '../../../services/pokeap
 import { ActivatedRoute } from '@angular/router';
 import { PillsComponent } from '../../../components/pills/pills.component';
 import { ScrollHintComponent } from './scroll-hint/scroll-hint.component';
+import { CardComponent } from './card/card.component';
 
 @Component({
   selector: 'app-grid',
   standalone: true,
   imports: [
     PillsComponent,
-    ScrollHintComponent
+    ScrollHintComponent,
+    CardComponent
   ],
   templateUrl: './grid.component.html',
   styleUrl: './grid.component.scss'
@@ -26,7 +28,8 @@ export class GridComponent implements OnInit{
   list$: Signal<ThrottledData> = this.pokiApi.throttledList;
   showHelper: boolean = false;
   showHelperTimeout: any = null;
-  private throttle: number = 14;
+  speciesAdded = this.pokiApi.addedSpecies
+  private throttle: number = 12;
 
   constructor(
     private pokiApi: PokeapiService,
@@ -38,7 +41,6 @@ export class GridComponent implements OnInit{
   ngOnInit(): void {
     this.activeRoute.queryParams.subscribe((data) => {
       this.pokiApi.listPokemon(data as Filters)
-      // this.pokiApi.listPokemon({name: 'm'} as any)
     })
 
     this.pokiApi.throttleList(this.throttle)
@@ -51,8 +53,6 @@ export class GridComponent implements OnInit{
       if(this.moreToShow(true)) this.showHelper = true;
     }, 3000)
   }
-
-
 
   onScroll(){
     if(!this.grid) return;
@@ -69,7 +69,7 @@ export class GridComponent implements OnInit{
 
   moreToShow(forhelper: boolean = false): boolean{
     if(!this.grid) return false;
-    
+
     const currentlistLength = this.list$().data.length;
 
     if (this.grid.offsetHeight + this.grid.scrollTop >= this.grid.scrollHeight && currentlistLength < this.list$().max) return true

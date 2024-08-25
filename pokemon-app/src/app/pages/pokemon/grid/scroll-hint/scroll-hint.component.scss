@@ -9,6 +9,7 @@ div{
     transform: translateX(50%);
     opacity: 0;
     transition: opacity 300ms;
+    white-space: nowrap;
 
     @media screen and (min-width: 1000px) {
         right: 50px;
@@ -21,22 +22,4 @@ div{
     &.hide{
         opacity: 0;
     }
-}
-
-@keyframes show {
-    0%{
-        opacity: 0; 
-        display: none;
-    }
-
-    50%{
-        opacity: 0;
-        
-    }
-    100%{opacity: 1; display: block; }
-}
-@keyframes hide {
-    0%{opacity: 1; }
-    90%{opacity: 0;}
-    100%{display: none;}
 }

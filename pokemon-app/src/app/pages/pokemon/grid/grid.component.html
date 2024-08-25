@@ -1,11 +1,18 @@
 <div class="grid-wrapper" (scroll)="onScroll()" #grid>
 
     <app-pills [size$]="'large'"></app-pills>
-    <div class="grid-grid" >
-        @for(i of list$().data; track i){
-            <section></section>
-        }    
-    </div>
+    @if(list$().data.length > 0){
+        <div class="grid-grid" >
+            @for(i of list$().data; track i){
+                <app-card [pokemon]="i"></app-card>
+            }    
+        </div>
+    } @else if(!speciesAdded()){
+        <h3 class="grid-no-results">Loading Data</h3>
+    } @else {
+        <h3 class="grid-no-results">No Results</h3>
+    }
+
 
     <app-scroll-hint [showHelper]="showHelper"></app-scroll-hint>
 </div>

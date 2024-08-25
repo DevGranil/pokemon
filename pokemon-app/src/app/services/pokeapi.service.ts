@@ -232,7 +232,7 @@ export class PokeapiService {
   private _gridStore = signal<PokeStore[]>([])
   private _throttleStore = signal<PokeStore[]>([])
 
-  addedSpecies: boolean = false;
+  addedSpecies = signal<boolean>(false);
 
   constructor(private http: HttpClient) { }
 
@@ -252,7 +252,7 @@ export class PokeapiService {
   totalResults(){
     return computed(() => this._gridStore().length)
   }
-  
+
   displayedResults(){
     return computed(() => this._throttleStore().length)
   }
@@ -261,11 +261,12 @@ export class PokeapiService {
   async buildOptions(type: Exclude<FilterTypes, FilterTypes.NAME>){
     switch(type){
       case FilterTypes.COLOR:{
-        if(!this.addedSpecies) await this.addSpecies()
+        if(!this.addedSpecies()) await this.addSpecies()
+
         return computed(() => {
           const allColours: string[] = [];
           this._store().forEach(pokemon => {
-            allColours.push(pokemon.species[type]['name'])
+           pokemon.species[type] && allColours.push(pokemon.species[type]['name'])
           })
           return [...new Set(allColours)];
         })
@@ -293,7 +294,7 @@ export class PokeapiService {
 
 
   buildStore(){
-    this.http.get<PokemonResponse>(`${this._api}/pokemon?limit=150`)
+    this.http.get<PokemonResponse>(`${this._api}/pokemon?limit=151`)
     .pipe(map(({results}) => { 
       results.forEach(p => this.http.get<PokeStore>(p.url)
       .subscribe(data => {
@@ -313,7 +314,7 @@ export class PokeapiService {
           })
       }
 
-      this.addedSpecies = true;
+      this.addedSpecies.set(true);
   }
 
 
@@ -334,7 +335,7 @@ export class PokeapiService {
           break
         }
         case FilterTypes.COLOR:{
-          if(!this.addedSpecies) await this.addSpecies()
+          if(!this.addedSpecies()) await this.addSpecies()
           filteredStore = filteredStore.filter(pokemon => pokemon.species[key] && pokemon.species[key]['name'] === val)
           break;
         }

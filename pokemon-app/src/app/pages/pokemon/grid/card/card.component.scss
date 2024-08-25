@@ -1,0 +1,43 @@
+.card{
+    height: 100%;
+    border: 10px solid #FFCC00 ;
+    box-shadow: 0 0 5px lightgray;
+    border-radius: 3px;
+    padding: 10px;
+  
+
+    &__img{
+        height: 60%;
+        background-color: white;
+        margin-bottom: 20px;
+        border-radius: 3px;
+
+        img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__title{
+        text-transform: capitalize;
+        margin: 0;
+        color: black;
+    }
+
+    &__type{
+        margin: 0;
+    }
+
+    &__list{
+        margin: 0;
+        padding-inline-start: 10px;
+        li {
+            display: inline-block;
+            color: black;
+            margin-right: 5px;
+            font-size: 0.8rem;
+            list-style:circle;
+        }
+    }
+}

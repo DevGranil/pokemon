@@ -7,6 +7,8 @@ div.panel{
     transform: translate(-100vw);
     transition: transform 200ms;
     background-color: rgb(238, 238, 238);
+    z-index: 1;
+    overflow-y: auto;
 
     &.display{
         transform: translateX(0);  
@@ -44,11 +46,12 @@ div.panel{
     align-items: center;
     border-radius: 50%;
     position: fixed;
-    box-shadow: 0 0 5px rgb(241, 241, 241);
+    box-shadow: 0 0 5px rgb(67, 67, 67);
     border: none;
     top: 10px;
     left: 10px;
-    background-color: white;
+    background-color: rgb(48, 48, 48);
+    z-index: 1000;
 
     @media screen and (min-width: 768px) {
         display: none;
@@ -57,7 +60,7 @@ div.panel{
     span{
         height: 7px;
         width: 7px;
-        background-color: rgb(0, 0, 0);
+        background-color: rgb(255, 255, 255);
         border-radius: 50%;
     }
 }
