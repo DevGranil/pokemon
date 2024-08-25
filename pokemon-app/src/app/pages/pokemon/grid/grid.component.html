@@ -1,4 +1,4 @@
-<div class="grid-wrapper" (scroll)="onScroll($event)">
+<div class="grid-wrapper" (scroll)="onScroll()" #grid>
 
     <app-pills [size$]="'large'"></app-pills>
     <div class="grid-grid" >
@@ -6,4 +6,6 @@
             <section></section>
         }    
     </div>
+
+    <app-scroll-hint [showHelper]="showHelper"></app-scroll-hint>
 </div>

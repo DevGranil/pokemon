@@ -11,6 +11,13 @@
         <label class="filter__title">Species</label>
         <app-select-option [filterType]="filterTypes.COLOR"></app-select-option>
    </div>
+
+   <div class="filter">
+     <span>Showing </span><span>({{displayed()}})</span>
+   </div>
+   <div class="filter">
+     <span>Total results: </span><span>({{total()}})</span>
+   </div>
 </div>
 
 <button class="mob-filter" (click)="showPanel()">

@@ -249,6 +249,13 @@ export class PokeapiService {
     this._throttleStore.set(this._gridStore().slice(0, throttle))
   }
 
+  totalResults(){
+    return computed(() => this._gridStore().length)
+  }
+  
+  displayedResults(){
+    return computed(() => this._throttleStore().length)
+  }
 
 
   async buildOptions(type: Exclude<FilterTypes, FilterTypes.NAME>){

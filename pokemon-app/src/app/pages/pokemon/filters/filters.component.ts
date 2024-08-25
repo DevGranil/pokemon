@@ -20,6 +20,8 @@ import { PillsComponent } from '../../../components/pills/pills.component';
 export class FiltersComponent implements OnInit{
   filterTypes = FilterTypes
   displayPanel: boolean = false;
+  total = this.pokeApiService.totalResults()
+  displayed = this.pokeApiService.displayedResults()
 
   constructor(private pokeApiService: PokeapiService){}
 
