@@ -1,4 +1,4 @@
-import { Component, effect, ElementRef, OnInit, Signal, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, effect, ElementRef, OnInit, Signal, ViewChild } from '@angular/core';
 import { Filters, PokeapiService, ThrottledData } from '../../../services/pokeapi.service';
 import { ActivatedRoute } from '@angular/router';
 import { PillsComponent } from '../../../components/pills/pills.component';
@@ -44,8 +44,7 @@ export class GridComponent implements OnInit{
     })
 
     this.pokiApi.throttleList(this.throttle)
-    
-    this.moreToShow() && this.setShowHelper()
+  
   }
 
   setShowHelper(){
@@ -58,9 +57,9 @@ export class GridComponent implements OnInit{
     if(!this.grid) return;
 
     this.showHelper = false;
+    this.setShowHelper()
     
     if(this.moreToShow()){
-      this.setShowHelper()
       this.pokiApi.throttleList(this.list$().data.length + this.throttle)
     }
     
