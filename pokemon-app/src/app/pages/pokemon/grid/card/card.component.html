@@ -3,7 +3,7 @@
         <h6 class="card__title" [ngStyle]="{ 'color' : pokemon().species['color'] && pokemon().species['color']['name'] === 'black' ? 'white' : 'black'}">{{pokemon().name}}</h6>
     </section>
     <section class="card__img">
-        <img [src]="pokemon().sprites.front_default">
+        <img [src]="pokemon().sprites.front_default" [alt]="pokemon().name">
     </section>
     <section class="card__type">
         <h6 class="card__title" [ngStyle]="{ 'color' : pokemon().species['color'] && pokemon().species['color']['name'] === 'black' ? 'white' : 'black'}" >Type</h6>
