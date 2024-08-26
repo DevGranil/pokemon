@@ -15,11 +15,11 @@ main{
     }
 
     &__brand{
-        .img{
+        img{
             height: 150px;
             width: 300px;
-            background: url('../../../assets/svg/brand.svg');
-            background-repeat: no-repeat;
+            // background: url('../../../assets/svg/brand.svg');
+            // background-repeat: no-repeat;
         }
         margin-bottom: 20px;
     }
