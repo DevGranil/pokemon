@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SelectOptionComponent } from './select-option.component';
+import { PokeapiService } from '../../services/pokeapi.service';
+import { RouterModule } from '@angular/router';
 
 describe('SelectOptionComponent', () => {
     let component: SelectOptionComponent;
@@ -8,7 +10,11 @@ describe('SelectOptionComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [SelectOptionComponent]
+            imports: [
+                SelectOptionComponent,
+                RouterModule.forRoot([])
+            ],
+            providers: [{provide: PokeapiService, useValue: () => {}}]
         })
             .compileComponents();
     

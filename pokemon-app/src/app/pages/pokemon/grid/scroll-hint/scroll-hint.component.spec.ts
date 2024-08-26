@@ -14,6 +14,7 @@ describe('ScrollHintComponent', () => {
     
         fixture = TestBed.createComponent(ScrollHintComponent);
         component = fixture.componentInstance;
+        fixture.componentRef.setInput('showHelper', false)
         fixture.detectChanges();
     });
 

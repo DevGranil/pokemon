@@ -18,4 +18,8 @@ type Pokemon = PokeStore
 export class CardComponent {
     pokemon = input.required<Pokemon>()
 
+    constructor(){
+    }
+    
+
 }

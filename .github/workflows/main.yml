@@ -21,9 +21,9 @@ jobs:
       working-directory: ./pokemon-app
       run: npm install && npm run build:prod
 
-    # - name: Run Tests
-    #   working-directory: ./pokemon-app
-    #   run: npm run test:headless
+    - name: Run Tests
+      working-directory: ./pokemon-app
+      run: npm run test:headless
 
     - name: Deploy to Github Pages
       uses: JamesIves/github-pages-deploy-action@v4

@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FiltersComponent } from './filters.component';
+import { PokeapiService } from '../../../services/pokeapi.service';
+import { RouterModule } from '@angular/router';
+import { signal } from '@angular/core';
 
 describe('FiltersComponent', () => {
     let component: FiltersComponent;
@@ -8,7 +11,14 @@ describe('FiltersComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FiltersComponent]
+            imports: [
+                FiltersComponent,
+                RouterModule.forRoot([])
+            ],
+            providers: [{provide: PokeapiService, useValue: {
+                totalResults: () => signal<number>(0),
+                displayedResults: ()  => signal<number>(0)
+            }}]
         })
             .compileComponents();
     

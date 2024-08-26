@@ -1,4 +1,4 @@
-import { Component, effect, ElementRef, OnInit, Signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Signal, ViewChild } from '@angular/core';
 import { Filters, PokeapiService, ThrottledData } from '../../../services/pokeapi.service';
 import { ActivatedRoute } from '@angular/router';
 import { PillsComponent } from '../../../components/pills/pills.component';
@@ -35,7 +35,7 @@ export class GridComponent implements OnInit{
         private pokiApi: PokeapiService,
         private activeRoute: ActivatedRoute
     ){
-        effect(() => console.log(this.list$()))
+        // effect(() => console.log(this.list$()))
     }
 
     ngOnInit(): void {
