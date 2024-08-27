@@ -1,11 +1,31 @@
-# Pokemon Search and Filter - WORK IN PROGRESS
+# Pokemon Search and Filter
+
+
+Visit web app here -->  https://devgranil.github.io/pokemon/
+
+![Alt text](pokemon-app/src/assets/search.png?raw=true "Title")
+![Alt text](pokemon-app/src/assets/colour.png?raw=true "Title")
+
+
 
 ## Description
-Welcome you pokemon fans.
+Welcome Pokemon fans.
 
-This app can be used to search and filter your favourite pokemon. Begin by searching for a pokemon in the search box.
+Please feel free to use this app to search and filter the original 151 Pokemon. 
+
+### Query Params
+You can filter Pokemon based on the following <br/>
+1. name (Does not need to match full name)
+2. type
+3. color
+
 
 ## Features
+This app contains the following UX/UI features 
+- Inifinte scrolling with total and displayed results info
+- Suggested search with character highlighting
+- Query pills so you can easily remove query params.
+
 
 
 ## Tech used to build this app
