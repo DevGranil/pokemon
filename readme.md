@@ -1,7 +1,12 @@
 # Pokemon Search and Filter
 
+<br/>
+
+
 > [!WARNING]
 > This only works on Desktop for the time being. I will make adjusts to get this working on Mobile. Thank you 
+
+<br/>
 
 Visit web app here -->  https://devgranil.github.io/pokemon/
 
